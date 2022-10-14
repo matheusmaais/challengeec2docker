@@ -83,3 +83,8 @@ jobs:
           --document-name "AWS-RunShellScript" \
           --parameters commands="sudo docker run -d -p 8080:3000 matheusmaais/hellownode:main" \
           --targets Key=tag:Name,Values=DevopsProjectEc2
+
+      - name: URL
+        run: | 
+          cd terraform/
+          cat public-ip.txt
