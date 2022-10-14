@@ -2,38 +2,37 @@ name: Destroy infrastructure
 on:
   workflow_dispatch:
 jobs:
+  DestroyAWSinfra:
+      runs-on: ubuntu-latest
+      # env:
+      #   DOCKER_REPO: matheusmaais
+      #   IMAGE_NAME: hellownode
+      #   IMAGE_TAG: main
+      steps:
+        - name: Configure AWS Credentials
+          uses: aws-actions/configure-aws-credentials@v1
+          with:
+            aws-access-key-id: ${{ secrets.POC_AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.POC_AWS_SECRET_KEY }}
+            aws-region: us-east-1
+        
+        - name: Checkout Application
+          uses: actions/checkout@v3
   
-CreateAWSinfra:
-    runs-on: ubuntu-latest
-    # env:
-    #   DOCKER_REPO: matheusmaais
-    #   IMAGE_NAME: hellownode
-    #   IMAGE_TAG: main
-    steps:
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.POC_AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.POC_AWS_SECRET_KEY }}
-          aws-region: us-east-1
-      
-      - name: Checkout Application
-        uses: actions/checkout@v3
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 0.13.5
-
-      - name: Terraform Init and Plan
-        id: 
-        run: |
-          cd terraform/
-          terraform init
-        continue-on-error: false
-
-      - name: Terraform Destroy
-        id: 
-        run: |
-          cd terraform/
-          terraform destroy -auto-approve
+        - name: Setup Terraform
+          uses: hashicorp/setup-terraform@v1
+          with:
+            terraform_version: 0.13.5
+  
+        - name: Terraform Init and Plan
+          id: 
+          run: |
+            cd terraform/
+            terraform init
+          continue-on-error: false
+  
+        - name: Terraform Destroy
+          id: 
+          run: |
+            cd terraform/
+            terraform destroy -auto-approve

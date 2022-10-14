@@ -73,11 +73,11 @@ jobs:
           aws-region: us-east-1
 
 
-      - name: Terraform Apply
+      - name: Wait
         run: sleep 180s
         continue-on-error: false
 
-      - name: Deleting unused docker images
+      - name: Deploy Container
         run: |
           nohup aws ssm send-command \
           --document-name "AWS-RunShellScript" \
