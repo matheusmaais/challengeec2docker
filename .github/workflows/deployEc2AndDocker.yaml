@@ -86,6 +86,12 @@ jobs:
           --parameters commands="sudo docker run -d -p 8080:3000 matheusmaais/hellownode:main" \
           --targets Key=tag:Name,Values=DevopsProjectEc2
 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.13.5
+
+
       - name: URL
         run: | 
           cd terraform/
