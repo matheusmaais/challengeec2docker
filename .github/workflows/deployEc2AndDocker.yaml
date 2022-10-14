@@ -6,6 +6,7 @@ on:
       - "main"
 jobs:
   BuildContainer:
+    name: Build Container
     runs-on: ubuntu-latest
     env:
       DOCKER_REPO: matheusmaais
@@ -27,6 +28,7 @@ jobs:
           docker image push ${DOCKER_REPO}/${IMAGE_NAME}:${IMAGE_TAG}
 
   CreateAWSinfra:
+    name: Create AWS Infra
     runs-on: ubuntu-latest
     steps:
       - name: Configure AWS Credentials
