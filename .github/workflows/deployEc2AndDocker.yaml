@@ -89,4 +89,4 @@ jobs:
       - name: URL
         run: | 
           cd terraform/
-          cat public-ip.txt
+          terraform init && terraform output
