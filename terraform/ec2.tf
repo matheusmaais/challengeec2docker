@@ -9,9 +9,13 @@ resource "aws_instance" "web" {
   iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
 
   user_data            = <<EOF
-  #!/bin/bash 
-  sudo apt update && sudo apt install docker.io -y
+#!/bin/bash 
+sudo apt update && sudo apt install docker.io -y
   EOF
+
+  provisioner "local-exec" {
+    command = "echo ${aws_instance.ubuntu.public_ip} > public-ip.txt"
+  }
 
   tags = {
     Name = "DevopsProjectEc2"
